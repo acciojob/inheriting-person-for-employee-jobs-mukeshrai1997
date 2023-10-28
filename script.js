@@ -1,28 +1,40 @@
-function Person(name, age) {
-  this.name = name;
-  this.age = age;
+function smallestDifferenceArray(N) {
+  if (N % 2 === 1) {
+    // If N is odd, include 0 in the array
+    let result = [0];
+    N--;
+    // For the rest of the array, alternate between positive and negative numbers
+    for (let i = 1; i <= N / 2; i++) {
+      result.push(i, -i);
+    }
+    return result;
+  } else {
+    // If N is even, just create an array with positive and negative numbers
+    let result = [];
+    for (let i = 1; i <= N / 2; i++) {
+      result.push(i, -i);
+    }
+    return result;
+  }
 }
 
-Person.prototype.greet = function () {
-  console.log(`Hello, my name is ${this.name}, I am ${this.age} years old.`);
+var readline = require("readline").createInterface(process.stdin);
+
+let inputArr = [];
+var lineNumber = -1;
+
+readline.on("line", readInputs);
+
+function readInputs(line) {
+  inputArr.push(line);
+  lineNumber++;
+  if (lineNumber == 0) {
+    N = parseInt(inputArr[0]);
+    logic("s");
+    readline.close();
+  }
 }
 
-function Employee(name, age, jobTitle) {
-  // Call the Person constructor to initialize name and age
-  Person.call(this, name, age);
-
-  this.jobTitle = jobTitle;
+function logic(input) {
+  console.log(smallestDifferenceArray(N).join(" "));
 }
-
-// Inherit the Person prototype
-Employee.prototype = Object.create(Person.prototype);
-
-// Add the jobGreet method to the Employee prototype
-Employee.prototype.jobGreet = function () {
-  console.log(`Hello, my name is ${this.name}, I am ${this.age} years old, and my job title is ${this.jobTitle}.`);
-}
-
-// Do not change the code below this line
-window.Person = Person;
-window.Employee = Employee;
-
